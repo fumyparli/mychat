@@ -52,7 +52,9 @@ module.exports = (server, app, sessionMiddleware) => {
             }
         });
         socket.on('chat', (data) => {
+            console.log("여기뭐하는거???");
             socket.to(data.room).emit(data);
-        });
+            console.log("여기뭐하는거???");
+        }); // 여기뭔역할임 ㅅㅂ
     });
 }

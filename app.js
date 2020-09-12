@@ -44,7 +44,6 @@ app.use((req, res, next) => {
         const colorHash = new ColorHash();
         req.session.color = colorHash.hex(req.sessionID);
     }
-    console.log("req.session: ", req.session);
     next();
 });
 

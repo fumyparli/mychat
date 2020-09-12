@@ -43,8 +43,11 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const chat_list = document.querySelector('#chat-list');
-    chat_list.scrollTop = chat_list.scrollHeight;
+    function fix_scroll() {
+        const chat_list = document.querySelector('#chat-list');
+        chat_list.scrollTop = chat_list.scrollHeight;
+    };
+    fix_scroll();
     const socket = io.connect('http://localhost:80/chat', {
         path: '/socket.io',
     });
@@ -55,6 +58,7 @@
         div.textContent = data.chat;
         div.appendChild(chat);
         document.querySelector('#chat-list').appendChild(div);
+        fix_scroll();
     });
     socket.on('exit', function (data) {
         const div = document.createElement('div');
@@ -63,6 +67,7 @@
         div.textContent = data.chat;
         div.appendChild(chat);
         document.querySelector('#chat-list').appendChild(div);
+        fix_scroll();
     });
     socket.on('chat', function (data) {
         const div = document.createElement('div');
@@ -85,8 +90,7 @@
         }
         div.style.color = data.user;
         document.querySelector('#chat-list').appendChild(div);
-        const chat_list = document.querySelector('#chat-list');
-        chat_list.scrollTop = chat_list.scrollHeight;
+        fix_scroll();
     });
     document.querySelector('#chat-form').addEventListener('submit', function (e) {
         e.preventDefault();
